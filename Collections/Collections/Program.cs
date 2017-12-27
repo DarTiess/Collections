@@ -259,6 +259,11 @@ namespace Collections
                 }
             }
 
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Дан файл, содержащий числа.");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            
             using (StreamReader sr = new StreamReader(numbt))
             {
                 string line;
@@ -267,35 +272,48 @@ namespace Collections
                     Console.Write(line+" ");
                 }
             }
-            Queue<int> numPol = new Queue<int>();
-            Queue<int> numOtr = new Queue<int>();
+            Console.WriteLine();
+            List<int> numPol = new List<int>();
+            List<int> numOtr = new List<int>();
             using (StreamReader sr = new StreamReader(numbt))
             {
                 string line;
                 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    for(int i = 0; i < line.Length; i++)
+                    string[] lin2 = line.Split(' ');
+                    int[] linNum=new int[lin2.Length];
+                    for(int i = 0; i < lin2.Length; i++)
                     {
-                        numPol.Enqueue(line[i]);
-                        if (line[i]<0)
+                        linNum[i] = Int32.Parse(lin2[i]);
+                        numPol.Add(linNum[i]);
+                        if (linNum[i]<0)
                         {
-                            numOtr.Enqueue(line[i]);
-                            numPol.ToList().Remove(line[i]);
+                            numOtr.Add(linNum[i]);
+                            numPol.Remove(linNum[i]);
                         }
                        
                     }
                     
-                    foreach(var i in numPol)
-                    {
-                        Console.Write(i + " ");
-                    }
-                    Console.WriteLine("-----------------");
-                    foreach (var i in numOtr)
-                    {
-                        Console.Write(i + " ");
-                    }
+                  
 
+                }
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("все положительные числа");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                foreach (var i in numPol)
+                {
+                    Console.Write(i + " ");
+                }
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("все отрицательные числа");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                foreach (var i in numOtr)
+                {
+                    Console.Write(i + " ");
                 }
             }
 
